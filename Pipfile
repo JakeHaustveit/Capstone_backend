@@ -5,10 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
-mysql-connector-python = "==8.0.26"
 djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+mysql-connector-python = "==8.0.26"
+django-cors-headers = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.9"
