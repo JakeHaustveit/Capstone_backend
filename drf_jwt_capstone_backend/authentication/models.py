@@ -11,5 +11,4 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    business_name = models.CharField(max_length=75)
-    employee_login_code = models.CharField(max_length=400)
+    middle_name = models.CharField(max_length=20)
