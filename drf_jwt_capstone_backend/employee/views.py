@@ -11,11 +11,11 @@ from rest_framework import status
 class EmployeeRegistration(APIView):
 
     def post(self, request):
-        serializer = EmployeesSerializer(data=request.data)
+        serializer = EmployeesSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 class GetAllEmployees(APIView):
 
@@ -43,12 +43,12 @@ class EmployeeData(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response (serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response (serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
         employee = self.get_object(pk)
         employee.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status = status.HTTP_204_NO_CONTENT)
 
 
         
