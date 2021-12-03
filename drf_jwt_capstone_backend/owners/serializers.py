@@ -6,7 +6,8 @@ from .models import Owners, JobList, EmployeeRoles
 class OwnersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Owners
-        field = ['business_name', 'user', 'first_name', 'last_name']
+        fields = ['business_name', 'user', 'first_name', 'last_name']
+        
 
 class JobListSerializer(serializers.ModelSerializer):
     class Meta:

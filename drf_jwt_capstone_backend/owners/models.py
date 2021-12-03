@@ -10,7 +10,7 @@ User = get_user_model()
 
 class Owners(models.Model):
     business_name = models.CharField(max_length=50, unique = True)
-    user = models.ForeignKey(User, blank = True, null = True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 

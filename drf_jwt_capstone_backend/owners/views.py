@@ -15,12 +15,13 @@ from django.apps import apps
 
 class Index(APIView):
 
-    Employees= apps.get_model('employees.Employees')    
-    all_employees = Employees.objects.all()
+    def index(request):
+        Employees= apps.get_model('employees.Employees')    
+        all_employees = Employees.objects.all()
     
     def get_Owner(self, pk):
         try:
-            return Owners.objects.get(pk)
+            return Owners.objects.get(pk=pk) 
         except Owners.DoesNotExist:
             raise Http404
 
@@ -55,7 +56,7 @@ class JobListData(APIView):
 
     def get_job_list(self, pk):
         try:
-            return JobList.objects.get(pk)
+            return JobList.objects.get(pk=pk)
         except JobList.DoesNotExist:
             raise Http404
 
@@ -101,17 +102,17 @@ class EmployeeRolesData(APIView):
 
     def get_employee_roles(self, pk):
         try:
-            return EmployeeRoles.objects.get(pk)
+            return EmployeeRoles.objects.get(pk=pk)
         except JobList.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
-        employee_role = self.get_object(pk)
+        employee_role = self.get_employee_roles(pk)
         serializer = EmployeeRolesSerializer(employee_role)
         return Response(serializer.data)
     
     def put(self, request, pk):
-        employee_role = self.get_object(pk)
+        employee_role = self.get_employee_roles(pk)
         serializer = EmployeeRolesSerializer(employee_role)
         if serializer.is_valid():
             serializer.save()
@@ -119,6 +120,6 @@ class EmployeeRolesData(APIView):
         return Response (serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        employee_role = self.get_object(pk)
+        employee_role = self.get_employee_roles(pk)
         employee_role.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)

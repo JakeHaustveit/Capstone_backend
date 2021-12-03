@@ -32,17 +32,17 @@ class EmployeeData(APIView):
 
     def get_employee(self, pk):
         try:
-            return Employees.objects.get(pk)
+            return Employees.objects.get(pk=pk)
         except Employees.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
-        employee = self.get_object(pk)
+        employee = self.get_employee(pk)
         serializer = EmployeesSerializer(employee)
         return Response(serializer.data)
     
     def put(self, request, pk):
-        employee = self.get_object(pk)
+        employee = self.get_employee(pk)
         serializer = EmployeesSerializer(employee)
         if serializer.is_valid():
             serializer.save()
@@ -50,7 +50,7 @@ class EmployeeData(APIView):
         return Response (serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        employee = self.get_object(pk)
+        employee = self.get_employee(pk)
         employee.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
 
