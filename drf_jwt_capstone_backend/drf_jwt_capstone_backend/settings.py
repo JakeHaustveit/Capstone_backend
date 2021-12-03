@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
-    'owner',
-    'employee',
+    'owners.apps.OwnerConfig',
+    'employees.apps.EmployeeConfig',
     'corsheaders',
 ]
 

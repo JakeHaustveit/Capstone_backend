@@ -1,33 +1,38 @@
+from django.http import request
 from django.http.response import Http404
 from rest_framework import serializers
 from rest_framework.serializers import Serializer
-from drf_jwt_capstone_backend.employee.models import Employees
-from drf_jwt_capstone_backend.owner.models import JobList, Owner, EmployeeRoles
-from .serializers import OwnerSerializer, JobListSerializer, EmployeeRolesSerializer
+from .models import JobList, Owners, EmployeeRoles
+from .serializers import JobListSerializer, EmployeeRolesSerializer, OwnersSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.apps import apps 
+
 
 
 # Create your views here.
 
-class OwnerRegistration(APIView):
+class Index(APIView):
 
-    def post(self, request):
-        serializer = OwnerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class OwnerData(APIView):
+    Employees= apps.get_model('employees.Employees')    
+    all_employees = Employees.objects.all()
     
     def get_Owner(self, pk):
         try:
-            return Employees.objects.get(pk)
-        except Employees.DoesNotExist:
+            return Owners.objects.get(pk)
+        except Owners.DoesNotExist:
             raise Http404
+
+class OwnersRegistration(APIView):
+
+    def post(self, request):
+        serializer = OwnersSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 
 class JobListRegistration(APIView):
     
@@ -72,6 +77,7 @@ class JobListData(APIView):
         job.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    
 class EmployeeRolesRegistration(APIView):
 
     def post(self, request):
@@ -81,12 +87,14 @@ class EmployeeRolesRegistration(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
 class AllEmployeeRoles(APIView):
 
     def get(self, request):
-        all_employee_roles = EmployeeRoles.objects.get()
+        all_employee_roles = EmployeeRoles.objects.all()
         serializer = EmployeeRolesSerializer(all_employee_roles, many = True)
         return Response(serializer.data)
+
 
 
 class EmployeeRolesData(APIView):

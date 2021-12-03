@@ -1,11 +1,11 @@
 from django.db import models
 from rest_framework import serializers
-from .models import Owner, JobList, EmployeeRoles
+from .models import Owners, JobList, EmployeeRoles
 
 
-class OwnerSerializer(serializers.ModelSerializer):
+class OwnersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Owner
+        model = Owners
         field = ['business_name', 'user', 'first_name', 'last_name']
 
 class JobListSerializer(serializers.ModelSerializer):

@@ -1,15 +1,16 @@
 from django.http.response import Http404
 from rest_framework.serializers import Serializer
-from drf_jwt_capstone_backend.employee.models import Employees
+from .models import Employees
 from .serializers import EmployeesSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 
-# Create your views here.
-class EmployeeRegistration(APIView):
 
+# Create your views here.
+class AddEmployee(APIView):
+    
     def post(self, request):
         serializer = EmployeesSerializer(data = request.data)
         if serializer.is_valid():
@@ -17,12 +18,15 @@ class EmployeeRegistration(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+
+
 class GetAllEmployees(APIView):
 
     def get(self, request):
         all_employees= Employees.objects.all()
         serializer= EmployeesSerializer(all_employees, many = True)
         return Response(serializer.data)
+
 
 class EmployeeData(APIView):
 
