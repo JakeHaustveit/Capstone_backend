@@ -10,8 +10,15 @@ User = get_user_model()
 class Employees(models.Model):
     first_name = models.CharField(max_length = 30)
     last_name = models.CharField(max_length = 30)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)
     owner_id= models.ForeignKey('owners.Owners', to_field='business_name', on_delete = models.CASCADE)
     labor_code=ForeignKey('owners.EmployeeRoles', to_field='labor_code', on_delete = models.CASCADE)
     vacation_start_date=models.DateField(blank = True, null = True)
     vacation_end_date=models.DateField(blank = True, null = True)
+
+
+class EmployeesWorkSchedule(models.Model):
+    employee_id = models.ForeignKey(Employees, on_delete=CASCADE)
+    date_worked = models.DateField()
+    start_time= models.TimeField()
+    end_time= models.TimeField()

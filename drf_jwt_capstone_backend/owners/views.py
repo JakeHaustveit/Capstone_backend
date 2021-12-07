@@ -67,7 +67,7 @@ class JobListData(APIView):
 
     def put(self, request, pk):
         job = self.get_job_list(pk)
-        serializer = JobListSerializer(job)
+        serializer = JobListSerializer(job, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
