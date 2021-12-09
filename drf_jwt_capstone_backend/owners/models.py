@@ -8,18 +8,14 @@ User = get_user_model()
 
 # Create your models here.
 
-class Owners(models.Model):
-    business_name = models.CharField(max_length=50, unique = True)
-    username = models.ForeignKey(User, to_field='username', on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+
 
 class JobList(models.Model):
     job_name = models.CharField(max_length=100)
     job_site = models.CharField(max_length=100)
     job_start_date= models.DateField(blank = True, null = True)
     job_end_date= models.DateField(blank = True, null = True)
-    business_name= models.ForeignKey(Owners, to_field='business_name', on_delete=models.CASCADE)
+    business_name= models.ForeignKey(User, to_field='business_name', on_delete=models.CASCADE)
 
 class EmployeeRoles(models.Model):
     labor_code = models.CharField(max_length = 50, unique = True)

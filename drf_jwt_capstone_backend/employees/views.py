@@ -16,7 +16,7 @@ User = get_user_model()
 class AddEmployee(APIView):
     
     def post(self, request):
-        serializer = EmployeesSerializer(data=request.data)
+        serializer = EmployeesSerializer( data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)

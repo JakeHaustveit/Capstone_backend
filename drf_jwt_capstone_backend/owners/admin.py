@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Owners
+from .models import EmployeeRoles, JobList
 
 # Register your models here.
 
-admin.site.register(Owners)
+admin.site.register(JobList)
