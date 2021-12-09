@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 #from employees.models import Employees
@@ -83,13 +83,13 @@ class EmployeeRegistrationSerializer(serializers.ModelSerializer):
 
         return user
 
-class UserSerializar(serializers.Serializer):
+class UserSerializar(serializers.ModelSerializer):
      class Meta:
         model = User
         # If added new columns through the User model, add them in the fields
         # list as seen below
-        fields = ('id', 'username', 'password', 'email',
-                  'first_name', 'last_name', 'middle_name')
+        fields = ('id', 'username', 'email',
+                  'first_name', 'last_name', 'middle_name', 'is_staff')
 
 
 

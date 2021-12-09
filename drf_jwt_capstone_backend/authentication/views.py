@@ -19,11 +19,44 @@ class EmployeeRegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = EmployeeRegistrationSerializer
 
+class UserList(APIView):
+    def get(self, request):
+        user = User.objects.all()
+        serializer = UserSerializar(user, many=True)
+        return Response(serializer.data)
+
 class UserDetail(APIView):
      
-    def get_object(self, pk):
+    def get_object(self, name):
         try:
-            return User.objects.get(pk=pk)
+            return User.objects.get(username=name)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, name):
+        user = self.get_object(name)
+        serializer = UserSerializar(user)
+        return Response(serializer.data)
+
+    def put(self, request, name):
+        user = self.get_object(name)
+        serializer = UserSerializar(user, partial = True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response (serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, name):
+        user = self.get_object(name)
+        user.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
+
+
+class OwnerDetails(APIView):
+    
+    def get_object(self, name):
+        try:
+            return User.objects.get(username=name)
         except User.DoesNotExist:
             raise Http404
 
@@ -32,16 +65,16 @@ class UserDetail(APIView):
         serializer = UserSerializar(user)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        user = self.get_object(pk)
-        serializer = UserSerializar(user)(user, partial = True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response (serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        user = self.get_object(pk)
-        user.delete()
-        return Response(status = status.HTTP_204_NO_CONTENT)
+class EmployeeDetails(APIView):
+    
+    def get_object(self, name):
+        try:
+            return User.objects.get(username=name)
+        except User.DoesNotExist:
+            raise Http404
 
+    def get(self, request, name):
+        user = self.get_object(name)
+        serializer = UserSerializar(user)
+        return Response(serializer.data)
