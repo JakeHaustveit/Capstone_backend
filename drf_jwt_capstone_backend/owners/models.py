@@ -8,8 +8,6 @@ User = get_user_model()
 
 # Create your models here.
 
-
-
 class JobList(models.Model):
     job_name = models.CharField(max_length=100)
     job_site = models.CharField(max_length=100)

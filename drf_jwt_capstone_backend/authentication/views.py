@@ -25,6 +25,33 @@ class UserList(APIView):
         serializer = UserSerializar(user, many=True)
         return Response(serializer.data)
 
+class OwnerList(APIView):
+
+    def get_object(self):
+        try:
+            return User.objects.filter(is_staff=True)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request):
+        user = self.get_object()
+        serializer = UserSerializar(user, many=True)
+        return Response(serializer.data)
+
+
+class EmployeeList(APIView):
+
+    def get_object(self):
+        try:
+            return User.objects.filter(is_staff=False)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request):
+        user = self.get_object()
+        serializer = UserSerializar(user, many=True)
+        return Response(serializer.data)                
+
 class UserDetail(APIView):
      
     def get_object(self, name):
