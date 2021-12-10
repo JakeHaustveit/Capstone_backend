@@ -4,8 +4,6 @@ from . import views
 
 
 urlpatterns = [    
-    #path('', views.OwnersRegistration.as_view()),
-    #path('home/', views.Index.as_view()),
     path('registerjobs/', views.JobListRegistration.as_view()),
     path('addJobs/<str:name>', views.GetAllJobs.as_view()),
     path('jobs/<str:busines_name>', views.JobListData.as_view()),

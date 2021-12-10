@@ -49,7 +49,7 @@ class EmployeeList(APIView):
 
     def get(self, request):
         user = self.get_object()
-        serializer = UserSerializar(user, many=True)
+        serializer = EmployeeRegistrationSerializer(user, many=True)
         return Response(serializer.data)                
 
 class UserDetail(APIView):
