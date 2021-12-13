@@ -70,8 +70,15 @@ class AddEmployeeWorkSchedule(APIView):
 
 class GetEmployeeWorkSchedule(APIView):
 
-     def get(self, request):
-        all_employees=  EmployeesWorkSchedule.objects.all()
+    def get_employee(self, name):
+        try:
+            return EmployeesWorkSchedule.objects.filter(username=name)
+
+        except Employees.DoesNotExist:
+            raise Http404
+
+    def get(self, request, name):
+        all_employees=  self.get_employee(name)
         serializer= EmployeesWorkScheduleSerializer(all_employees, many = True)
         return Response(serializer.data)
 
