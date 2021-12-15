@@ -89,7 +89,7 @@ class UserSerializar(serializers.ModelSerializer):
         # If added new columns through the User model, add them in the fields
         # list as seen below
         fields = ('id', 'username', 'email',
-                  'first_name', 'last_name', 'business_name', 'middle_name', 'is_staff')
+                  'first_name', 'last_name', 'business_name', 'middle_name', 'is_staff', 'owner_id')
 
 
 

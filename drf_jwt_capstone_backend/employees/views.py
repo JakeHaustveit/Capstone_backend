@@ -26,11 +26,16 @@ class AddEmployee(APIView):
 
 class GetAllEmployees(APIView):
 
-    def get(self, request):
-        all_employees= Employees.objects.all()
-        serializer= EmployeesSerializer(all_employees, many = True)
-        return Response(serializer.data)
+    def get_employee(self, name):
+        try:
+            return Employees.objects.filter(username=name)
+        except Employees.DoesNotExist:
+            raise Http404
 
+    def get(self, request, name):
+        employee = self.get_employee(name)
+        serializer = EmployeesSerializer(employee, many= True)
+        return Response(serializer.data)
 
 class EmployeeData(APIView):
 

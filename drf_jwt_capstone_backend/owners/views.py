@@ -60,14 +60,14 @@ class GetAllJobs(APIView):
 
 class JobListData(APIView):
 
-    def get_job_list(self, name):
+    def get_job_list(self, business_name):
         try:
-            return JobList.objects.get(business_name=name)
+            return JobList.objects.get(business_name=business_name)
         except JobList.DoesNotExist:
             raise Http404
 
-    def get(self, request, name):
-        job = self.get_job_list(name)
+    def get(self, request, business_name):
+        job = self.get_job_list(business_name)
         serializer = JobListSerializer(job)
         return Response(serializer.data)
 

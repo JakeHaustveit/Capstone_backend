@@ -4,7 +4,7 @@ from . import views
 
 app_name = "employees"
 urlpatterns = [    
-    path('', views.GetAllEmployees.as_view()),
+    path('employee/<str:name>/', views.GetAllEmployees.as_view()),
     path('home/', views.AddEmployee.as_view()),
     path('addwork/', views.AddEmployeeWorkSchedule.as_view()),
     path('employeedata/<int:pk>/', views.EmployeeData.as_view()),

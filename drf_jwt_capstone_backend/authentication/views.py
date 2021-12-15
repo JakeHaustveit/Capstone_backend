@@ -5,6 +5,7 @@ from .serializers import EmployeeRegistrationSerializer, RegistrationSerializer,
 from rest_framework import generics, serializers, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.db.models import Q
 User = get_user_model()
 
 
@@ -41,14 +42,14 @@ class OwnerList(APIView):
 
 class EmployeeList(APIView):
 
-    def get_object(self):
+    def get_object(self, name):
         try:
-            return User.objects.filter(is_staff=False)
+            return User.objects.filter(owner_id=name)
         except User.DoesNotExist:
             raise Http404
 
-    def get(self, request):
-        user = self.get_object()
+    def get(self, request, name):
+        user = self.get_object(name)
         serializer = EmployeeRegistrationSerializer(user, many=True)
         return Response(serializer.data)                
 

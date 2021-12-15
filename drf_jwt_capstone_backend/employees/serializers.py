@@ -9,4 +9,4 @@ class EmployeesSerializer(serializers.ModelSerializer):
 class EmployeesWorkScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeesWorkSchedule
-        fields = ["username", "labor_code", "date_worked", "start_time", "end_time", ]
+        fields = ["username", "labor_code", "date_worked", "start_time", "end_time", "area_working" ]

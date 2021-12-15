@@ -9,7 +9,7 @@ User = get_user_model()
 # Create your models here.
 
 class JobList(models.Model):
-    job_name = models.CharField(max_length=100)
+    job_name = models.CharField(max_length=100, unique= True)
     job_site = models.CharField(max_length=100)
     job_start_date= models.DateField(blank = True, null = True)
     job_end_date= models.DateField(blank = True, null = True)
