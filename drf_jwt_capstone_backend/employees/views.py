@@ -22,6 +22,29 @@ class AddEmployee(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+class EmployeeVacation(APIView):
+
+    def get_users(self):
+        try:
+            return User.objects.filter(is_staff=False)
+        except Employees.DoesNotExist:
+            raise Http404
+
+    def get_vacation(self):
+
+        employee_vacation=[]
+
+        employees= self.get_users()
+        for employee in employees:
+            employee_vacation.append(Employees.objects.get(username= employee.username))
+        return employee_vacation
+            
+
+    def get(self, request):
+        employee = Employees.objects.all()
+        serializer = EmployeesSerializer(employee, many=True)
+        return Response(serializer.data)
+
 
 
 class GetAllEmployees(APIView):

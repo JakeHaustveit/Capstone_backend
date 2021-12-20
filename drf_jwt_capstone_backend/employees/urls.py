@@ -6,6 +6,7 @@ app_name = "employees"
 urlpatterns = [    
     path('employee/<str:name>/', views.GetAllEmployees.as_view()),
     path('home/', views.AddEmployee.as_view()),
+    path('vacation/', views.EmployeeVacation.as_view()),
     path('addwork/', views.AddEmployeeWorkSchedule.as_view()),
     path('employeedata/<int:pk>/', views.EmployeeData.as_view()),
     path('employeeworkschedule/<str:name>/', views.GetEmployeeWorkSchedule.as_view()),
